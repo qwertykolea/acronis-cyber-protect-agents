@@ -1,7 +1,9 @@
 FROM rockylinux:9
 
 ARG AGENT_VERSION
+ARG MIRROR_URL
 ENV AGENT_VERSION=${AGENT_VERSION}
+ENV MIRROR_URL=${MIRROR_URL}
 
 RUN dnf update -y && \
     dnf install -y epel-release && \
@@ -12,7 +14,7 @@ ENV LANG=en_US.utf8
 ENV LC_ALL=en_US.utf8
 
 RUN wget -q -O /opt/CyberProtect_Agent.bin \
-        "https://eu-cloud.acronis.com/download/u/baas/4.0/${AGENT_VERSION}/CyberProtect_AgentForLinux_x86_64.bin" && \
+        "${MIRROR_URL}/download/u/baas/4.0/${AGENT_VERSION}/CyberProtect_AgentForLinux_x86_64.bin" && \
     chmod +x /opt/CyberProtect_Agent.bin && \
     /opt/CyberProtect_Agent.bin -a --skip-prereq-check --skip-registration --id="BackupAndRecoveryAgent" && \
     rm -f /opt/CyberProtect_Agent.bin
