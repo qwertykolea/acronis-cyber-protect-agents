@@ -12,7 +12,7 @@ services:
     container_name: acronis_tenant1
     hostname: siem_log_tenant1
     privileged: true
-    restart: always
+    restart: unless-stopped
     volumes:
       - /opt/acronis_volumes/tenant1/etc:/etc/Acronis
       - /opt/acronis_volumes/tenant1/var:/var/lib/Acronis
@@ -25,9 +25,19 @@ services:
     container_name: acronis_tenant2
     hostname: siem_log_tenant2
     privileged: true
-    restart: always
+    restart: unless-stopped
     volumes:
       - /opt/acronis_volumes/tenant2/etc:/etc/Acronis
       - /opt/acronis_volumes/tenant2/var:/var/lib/Acronis
       - /opt/acronis_volumes/tenant2/opt_var:/opt/acronis/var
       - /opt/acronis_volumes/tenant2/siem:/var/log/siem
+
+  watchtower: # auto-update containers
+    image: nickfedor/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true          # remove old images
+      - WATCHTOWER_POLL_INTERVAL=86400   # check everyday
