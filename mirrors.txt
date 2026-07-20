@@ -1,7 +1,1 @@
-https://eu-cloud.acronis.com
-https://fi01-cloud.acronis.com
-https://gr01-cloud.acronis.com
-https://id01-cloud.acronis.com
-https://il01-cloud.acronis.com
-https://in01-cloud.acronis.com
 https://it01-cloud.acronis.com
